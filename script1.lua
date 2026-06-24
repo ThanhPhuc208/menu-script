@@ -1,170 +1,133 @@
-ScreenGui
-└─ MainFrame
-   ├─ TopBar
-   │  ├─ Title
-   │  └─ CloseButton
-   │
-   ├─ TabButtons
-   │  ├─ Stats
-   │  ├─ Shop
-   │  ├─ Rebirth
-   │  ├─ Settings
-   │  └─ Codes
-   │
-   ├─ ContentFrame
-   │  ├─ StatsPage
-   │  ├─ ShopPage
-   │  ├─ RebirthPage
-   │  └─ SettingsPagelocal Players = game:GetService("Players")
-local player = Players.LocalPlayer
+local Player = game.Players.LocalPlayer
+local UIS = game:GetService("UserInputService")
 
-local gui = Instance.new("ScreenGui")
-gui.Name = "SpeedEscapeMenu"
-gui.ResetOnSpawn = false
-gui.Parent = player:WaitForChild("PlayerGui")
+local Gui = Instance.new("ScreenGui")
+Gui.Name = "SpeedEscape"
+Gui.ResetOnSpawn = false
+Gui.Parent = Player:WaitForChild("PlayerGui")
 
-local frame = Instance.new("Frame")
-frame.Size = UDim2.new(0, 350, 0, 250)
-frame.Position = UDim2.new(0.5, -175, 0.5, -125)
-frame.BackgroundColor3 = Color3.fromRGB(18,18,30)
-frame.BorderSizePixel = 0
-frame.Parent = gui
+local Frame = Instance.new("Frame")
+Frame.Size = UDim2.new(0,350,0,240)
+Frame.Position = UDim2.new(0.5,-175,0.5,-120)
+Frame.BackgroundColor3 = Color3.fromRGB(20,20,30)
+Frame.BorderSizePixel = 0
+Frame.Parent = Gui
 
-local corner = Instance.new("UICorner")
-corner.CornerRadius = UDim.new(0,12)
-corner.Parent = frame
+Instance.new("UICorner",Frame).CornerRadius = UDim.new(0,12)
 
-local title = Instance.new("TextLabel")
-title.Size = UDim2.new(1, -40, 0, 40)
-title.Position = UDim2.new(0,10,0,5)
-title.BackgroundTransparency = 1
-title.Text = "+1 Speed Keyboard Escape"
-title.TextScaled = true
-title.Font = Enum.Font.GothamBold
-title.TextColor3 = Color3.fromRGB(255,255,255)
-title.Parent = frame
+local Title = Instance.new("TextLabel")
+Title.Size = UDim2.new(1,-40,0,40)
+Title.Position = UDim2.new(0,10,0,5)
+Title.BackgroundTransparency = 1
+Title.Text = "+1 Speed Keyboard Escape"
+Title.TextScaled = true
+Title.Font = Enum.Font.GothamBold
+Title.TextColor3 = Color3.new(1,1,1)
+Title.Parent = Frame
 
-local close = Instance.new("TextButton")
-close.Size = UDim2.new(0,30,0,30)
-close.Position = UDim2.new(1,-35,0,5)
-close.Text = "X"
-close.TextColor3 = Color3.new(1,1,1)
-close.BackgroundColor3 = Color3.fromRGB(200,50,50)
-close.Parent = frame
+local Toggle = Instance.new("TextButton")
+Toggle.Size = UDim2.new(0,30,0,30)
+Toggle.Position = UDim2.new(1,-35,0,5)
+Toggle.Text = "X"
+Toggle.TextColor3 = Color3.new(1,1,1)
+Toggle.BackgroundColor3 = Color3.fromRGB(220,70,70)
+Toggle.Parent = Frame
 
-local function makeButton(text,pos,color)
-	local b = Instance.new("TextButton")
-	b.Size = UDim2.new(0,140,0,40)
-	b.Position = pos
-	b.Text = text
-	b.TextColor3 = Color3.new(1,1,1)
-	b.Font = Enum.Font.GothamBold
-	b.BackgroundColor3 = color
-	b.Parent = frame
+Instance.new("UICorner",Toggle).CornerRadius = UDim.new(0,8)
 
-	local c = Instance.new("UICorner")
-	c.CornerRadius = UDim.new(0,8)
-	c.Parent = b
+local Content = Instance.new("Frame")
+Content.Size = UDim2.new(1,0,1,-50)
+Content.Position = UDim2.new(0,0,0,50)
+Content.BackgroundTransparency = 1
+Content.Parent = Frame
 
-	return b
+local function CreateButton(Text,X,Y)
+	local B = Instance.new("TextButton")
+	B.Size = UDim2.new(0,150,0,40)
+	B.Position = UDim2.new(0,X,0,Y)
+	B.Text = Text
+	B.TextColor3 = Color3.new(1,1,1)
+	B.Font = Enum.Font.GothamBold
+	B.BackgroundColor3 = Color3.fromRGB(80,120,255)
+	B.Parent = Content
+
+	Instance.new("UICorner",B).CornerRadius = UDim.new(0,8)
+
+	B.MouseButton1Click:Connect(function()
+		print(Text.." clicked")
+	end)
+
+	return B
 end
 
-local statsBtn = makeButton("Stats",UDim2.new(0,15,0,60),Color3.fromRGB(70,120,255))
-local shopBtn = makeButton("Shop",UDim2.new(0,190,0,60),Color3.fromRGB(255,120,70))
-local speedBtn = makeButton("Speed",UDim2.new(0,15,0,115),Color3.fromRGB(70,200,120))
-local settingsBtn = makeButton("Settings",UDim2.new(0,190,0,115),Color3.fromRGB(170,100,255))
+CreateButton("Stats",15,10)
+CreateButton("Shop",180,10)
+CreateButton("Speed",15,65)
+CreateButton("Settings",180,65)
 
-local info = Instance.new("TextLabel")
-info.Size = UDim2.new(1,-20,0,60)
-info.Position = UDim2.new(0,10,0,175)
-info.BackgroundTransparency = 1
-info.TextColor3 = Color3.new(1,1,1)
-info.Font = Enum.Font.Gotham
-info.TextScaled = true
-info.Text = "Welcome to +1 Speed Keyboard Escape!"
-info.Parent = frame
+local Info = Instance.new("TextLabel")
+Info.Size = UDim2.new(1,-20,0,60)
+Info.Position = UDim2.new(0,10,0,130)
+Info.BackgroundTransparency = 1
+Info.Text = "Welcome!"
+Info.TextScaled = true
+Info.TextColor3 = Color3.new(1,1,1)
+Info.Font = Enum.Font.Gotham
+Info.Parent = Content
 
-statsBtn.MouseButton1Click:Connect(function()
-	info.Text = "Stats Page"
-end)
+local Minimized = false
 
-shopBtn.MouseButton1Click:Connect(function()
-	info.Text = "Shop Page"
-end)
+Toggle.MouseButton1Click:Connect(function()
+	Minimized = not Minimized
 
-speedBtn.MouseButton1Click:Connect(function()
-	info.Text = "Speed Training Page"
-end)
-
-settingsBtn.MouseButton1Click:Connect(function()
-	info.Text = "Settings Page"
-end)
-
-close.MouseButton1Click:Connect(function()
-	frame.Visible = false
-end)local minimized = false
-
-close.MouseButton1Click:Connect(function()
-	minimized = not minimized
-
-	if minimized then
-		for _,obj in ipairs(frame:GetChildren()) do
-			if obj ~= title and obj ~= close then
-				obj.Visible = false
-			end
-		end
-
-		frame.Size = UDim2.new(0,350,0,50)
-		close.Text = "+"
+	if Minimized then
+		Content.Visible = false
+		Frame.Size = UDim2.new(0,350,0,50)
+		Toggle.Text = "+"
 	else
-		for _,obj in ipairs(frame:GetChildren()) do
-			if obj:IsA("GuiObject") then
-				obj.Visible = true
-			end
-		end
-
-		frame.Size = UDim2.new(0,350,0,250)
-		close.Text = "X"
+		Content.Visible = true
+		Frame.Size = UDim2.new(0,350,0,240)
+		Toggle.Text = "X"
 	end
-end)local UIS = game:GetService("UserInputService")
+end)
 
-local dragging = false
-local dragInput
-local dragStart
-local startPos
+local Dragging = false
+local DragInput
+local DragStart
+local StartPos
 
-title.InputBegan:Connect(function(input)
-	if input.UserInputType == Enum.UserInputType.MouseButton1
-	or input.UserInputType == Enum.UserInputType.Touch then
+Title.InputBegan:Connect(function(Input)
+	if Input.UserInputType == Enum.UserInputType.MouseButton1
+	or Input.UserInputType == Enum.UserInputType.Touch then
 
-		dragging = true
-		dragStart = input.Position
-		startPos = frame.Position
+		Dragging = true
+		DragStart = Input.Position
+		StartPos = Frame.Position
 
-		input.Changed:Connect(function()
-			if input.UserInputState == Enum.UserInputState.End then
-				dragging = false
+		Input.Changed:Connect(function()
+			if Input.UserInputState == Enum.UserInputState.End then
+				Dragging = false
 			end
 		end)
 	end
 end)
 
-title.InputChanged:Connect(function(input)
-	if input.UserInputType == Enum.UserInputType.MouseMovement
-	or input.UserInputType == Enum.UserInputType.Touch then
-		dragInput = input
+Title.InputChanged:Connect(function(Input)
+	if Input.UserInputType == Enum.UserInputType.MouseMovement
+	or Input.UserInputType == Enum.UserInputType.Touch then
+		DragInput = Input
 	end
 end)
 
-UIS.InputChanged:Connect(function(input)
-	if input == dragInput and dragging then
-		local delta = input.Position - dragStart
+UIS.InputChanged:Connect(function(Input)
+	if Input == DragInput and Dragging then
+		local Delta = Input.Position - DragStart
 
-		frame.Position = UDim2.new(
-			startPos.X.Scale,
-			startPos.X.Offset + delta.X,
-			startPos.Y.Scale,
-			startPos.Y.Offset + delta.Y
+		Frame.Position = UDim2.new(
+			StartPos.X.Scale,
+			StartPos.X.Offset + Delta.X,
+			StartPos.Y.Scale,
+			StartPos.Y.Offset + Delta.Y
 		)
 	end
 end)
